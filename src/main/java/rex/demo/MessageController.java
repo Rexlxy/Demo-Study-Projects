@@ -1,13 +1,10 @@
 package rex.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import rex.demo.kafka.KafkaProducer;
 import rex.demo.models.Message;
 
@@ -15,6 +12,8 @@ import rex.demo.models.Message;
 public class MessageController {
 
     private KafkaProducer kafkaProducer;
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
 
     @Autowired
     public MessageController(KafkaProducer kafkaProducer) {
@@ -28,12 +27,12 @@ public class MessageController {
     }
 
 
-    @PostMapping(value = "/message", consumes="application/json", produces="application/json")
-    @ResponseBody
-    public ResponseEntity<String> publishMessage(@RequestBody Message message) {
-        kafkaProducer.sendMessage(message);
-        return new ResponseEntity<>("Success", HttpStatus.OK);
+
+    @MessageMapping("/one2one")//@MessageMapping和@RequestMapping功能类似，用于设置URL映射地址，浏览器向服务器发起请求，需要通过该地址。
+//    @SendTo("/topic/getResponse")//如果服务器接受到了消息，就会对订阅了@SendTo括号中的地址传送消息。
+    public void say(Message message) throws Exception {
+
+        simpMessagingTemplate.convertAndSendToUser(message.getReceiverId(), "/msg", message.getClientId() + ": " + message.getMessage());
+//        return "Welcome";
     }
-
-
 }

@@ -9,11 +9,16 @@ import java.time.LocalDateTime;
 @Data
 public class Message implements Serializable {
 
-    private Integer clientId;
+    private String clientId;
     private String message;
     private Long sentTime;
+    private String receiverId;
 
-    public Message(Integer clientId, String message) {
+    public Message() {
+
+    }
+
+    public Message(String clientId, String message) {
         this.clientId = clientId;
         this.message = message;
         this.sentTime = System.currentTimeMillis();

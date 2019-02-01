@@ -17,8 +17,7 @@ public class KafkaProducerTest {
 
     @Test
     public void test() {
-        Message message = new Message(1, "Hi");
-        this.producer.sendMessage(message);
+
     }
 
 }

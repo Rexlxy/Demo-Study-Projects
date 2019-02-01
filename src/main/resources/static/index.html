@@ -11,10 +11,18 @@
 </head>
 <body>
 
-<h1> Notice: <span id="notice">None</span></h1>
-
+Your username: <input id="clientId" type="text">
+<button onclick='setUpSocket()'>Connect</button>
+<hr>
+Message：
 <input id="messageInput" type="text" />
+Receiver username:
+<input id="receiverId" type="text">
 <button onclick="sendMessage()"> Send </button>
+<hr>
+<h5>Message Box</h5>
+<div id = "messageBox">
 
+</div>
 </body>
 </html>
