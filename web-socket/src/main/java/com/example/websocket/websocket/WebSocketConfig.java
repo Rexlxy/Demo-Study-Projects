@@ -1,4 +1,4 @@
-package rex.demo.websocket;
+package com.example.websocket.websocket;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.converter.MessageConverter;

@@ -1,9 +1,9 @@
-package rex.demo.models;
+package com.example.websocket.models;
+
 
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 
 @Data
